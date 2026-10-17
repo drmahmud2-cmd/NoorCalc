@@ -11,7 +11,7 @@ workflows:
         script: npm install
       - name: Sync Capacitor project
         script: |
-          npx --no-install cap sync android
+          node node_modules/@capacitor/cli/bin/capacitor sync android
       - name: Build Android Debug APK
         script: |
           cd android
