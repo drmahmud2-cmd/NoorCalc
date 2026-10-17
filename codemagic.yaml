@@ -8,9 +8,11 @@ workflows:
       java: 17
     scripts:
       - name: Install npm dependencies
-        script: npm install
+        script: |
+          npm install
       - name: Sync Capacitor project
-        script: npx cap sync android
+        script: |
+          npx cap sync android
       - name: Build Android Debug APK
         script: |
           cd android
