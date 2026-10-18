@@ -6,8 +6,7 @@
 <meta name="theme-color" content="#0F3D2E">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' blob:; connect-src *; style-src 'self' 'unsafe-inline';">
-<!-- INLINE PWA MANIFEST -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; connect-src 'self' https:; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
 <link rel="manifest" href="manifest.json">
 <title>NoorCalc — Zakat, Faraid &amp; Islamic Tools</title>
 <meta name="description" content="Offline Zakat and Faraid calculator with live FX, Hausa, Yoruba, Igbo and English.">
@@ -89,7 +88,7 @@ main{max-width:640px; margin:0 auto; padding:22px 16px 0;}
 
 label{display:block; font-size:12.5px; font-weight:600; color:var(--ink); opacity:0.9; margin:14px 0 6px;}
 label:first-of-type{margin-top:0;}
-input[type=number], input[type=text], input[type=date], select{width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:9px; font-size:15px; background:var(--paper); color:var(--ink); transition: background 0.3s, color 0.3s;}
+input[type=number], input[type=text], select{width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:9px; font-size:15px; background:var(--paper); color:var(--ink); transition: background 0.3s, color 0.3s;}
 input:focus, select:focus{outline:2px solid var(--gold); outline-offset:1px;}
 .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
 .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
@@ -129,7 +128,7 @@ input:focus, select:focus{outline:2px solid var(--gold); outline-offset:1px;}
 
 /* Faraid & Print */
 .wasiyya-panel { background: #fff; padding: 24px 18px; border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 16px; transition: background 0.3s;}
-button.dalil-badge { background: var(--paper-2); color: var(--pine); padding: 4px 8px; border-radius: 6px; margin-left: 6px; border: 1px solid var(--gold-light); cursor: pointer; font-size: 10px; font-weight: 700; transition: background 0.2s;}
+button.dalil-badge { background: var(--paper-2); color: var(--pine); padding: 4px 8px; border-radius: 6px; margin-top: 4px; border: 1px solid var(--gold-light); cursor: pointer; font-size: 10px; font-weight: 700; transition: background 0.2s;}
 button.dalil-badge:active { background: var(--gold-light); }
 .tree-wrap { margin-top: 24px; padding: 20px 16px; background: var(--paper-2); border-radius: 11px; overflow-x: auto; text-align: center; }
 .tree-level { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; position: relative; }
@@ -149,13 +148,19 @@ button.dalil-badge:active { background: var(--gold-light); }
   .bismillah-img { display: block; }
   
   body.print-doc #panel-faraid { display: block !important; }
-  body.print-doc #fr-calc, body.print-doc #fr-wasiyya, body.print-doc .subtabs, body.print-doc .card h2, body.print-doc .hint, body.print-doc label, body.print-doc select, body.print-doc input, body.print-doc .stepper, body.print-doc .heir-grid, body.print-doc .btn, body.print-doc .dalil-badge, body.print-doc .heir-section-title { display: none !important; }
+  body.print-doc.print-wasiyya #fr-calc, body.print-doc.print-wasiyya .subtabs, body.print-doc.print-wasiyya .card h2, body.print-doc.print-wasiyya .hint, body.print-doc.print-wasiyya label, body.print-doc.print-wasiyya select, body.print-doc.print-wasiyya input, body.print-doc.print-wasiyya .stepper, body.print-doc.print-wasiyya .heir-grid, body.print-doc.print-wasiyya .btn, body.print-doc.print-wasiyya .dalil-badge, body.print-doc.print-wasiyya .heir-section-title { display: none !important; }
   
+  body.print-doc.print-faraid #fr-calc, body.print-doc.print-faraid .subtabs, body.print-doc.print-faraid .card h2, body.print-doc.print-faraid .hint, body.print-doc.print-faraid label, body.print-doc.print-faraid select, body.print-doc.print-faraid input, body.print-doc.print-faraid .stepper, body.print-doc.print-faraid .heir-grid, body.print-doc.print-faraid .btn, body.print-doc.print-faraid .dalil-badge, body.print-doc.print-faraid .heir-section-title { display: none !important; }
+  body.print-doc.print-faraid #faraidResult { display: none !important; }
+
   body.print-doc #print-area { display: block !important; border: 4px double var(--gold); padding: 40px; margin: 20px; border-radius: 8px; text-align:center; }
-  body.print-doc #print-area h1 { color: #000; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom:30px; font-size: 28px; }
-  body.print-doc #print-area p { font-size: 16px; line-height: 1.8; text-align: left; margin-bottom: 15px; }
-  body.print-doc .sig-box { margin-top: 80px; display: flex; justify-content: space-between; }
-  body.print-doc .sig-line { border-top: 1px solid #000; width: 30%; text-align: center; padding-top: 8px; font-size:14px; }
+  body.print-doc #print-area h1 { color: #000; border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom:30px; font-size: 24px; }
+  body.print-doc #print-area p { font-size: 15px; line-height: 1.6; text-align: left; margin-bottom: 15px; }
+  body.print-doc #print-area table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  body.print-doc #print-area th, body.print-doc #print-area td { border: 1px solid #000; padding: 8px; text-align: left; font-size: 13px; }
+  body.print-doc #print-area th { background: #eee !important; color: #000 !important; }
+  body.print-doc .sig-box { margin-top: 60px; display: flex; justify-content: space-between; }
+  body.print-doc .sig-line { border-top: 1px solid #000; width: 30%; text-align: center; padding-top: 8px; font-size:13px; }
   
   body.print-doc .card { box-shadow: none; border: 4px double var(--gold) !important; padding: 40px !important; border-radius: 8px; margin: 20px; background: #fff !important; page-break-inside: avoid; }
   body.print-doc .result { background: transparent !important; border: none !important; padding:0; }
@@ -201,7 +206,7 @@ footer{text-align:center; padding:26px 20px 10px; font-size:11.5px; color:#8a826
       <div class="brand-mark">ن</div>
       <div>
         <div class="brand-name">NoorCalc</div>
-        <div class="brand-sub" data-t="tagShort">Almahmudiyyah Press</div>
+        <div class="brand-sub" data-t="tagShort">Almahmudiyyah Press, Bida</div>
       </div>
     </div>
     <div class="header-controls">
@@ -226,10 +231,10 @@ footer{text-align:center; padding:26px 20px 10px; font-size:11.5px; color:#8a826
   <div class="crown-hero">
     <div class="crown-eyebrow" data-t="heroEyebrow">Sadaqah Jariyah</div>
     <div class="crown-title" data-t="heroTitle">Zakat, Faraid &amp; Islamic tools — built for Nigeria.</div>
-    <div class="crown-desc" data-t="heroDesc">Everything runs on your device. Nothing you enter is ever saved or sent anywhere.</div>
+    <div class="crown-desc" data-t="heroDesc">Everything runs on your device. Your data is never uploaded.</div>
     <div class="crown-tags">
       <span class="crown-tag" data-t="tagOffline">Works fully offline</span>
-      <span class="crown-tag" data-t="tagPrivate">No data stored</span>
+      <span class="crown-tag" data-t="tagPrivate">No data stored remotely</span>
     </div>
   </div>
 </div>
@@ -386,7 +391,7 @@ footer{text-align:center; padding:26px 20px 10px; font-size:11.5px; color:#8a826
 
   <div class="card" id="fr-calc">
     <!-- SVG Bismillah embedded for Print only -->
-    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgODAiPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0xNDkuNSwyNy44Yy0yLjQsMC00LjItMS4zLTQuMi0zLjdjMC0yLjgsMi01LDQuNy01YzIuMiwwLDQuMywxLjIsNC4zLDMuNUMxNTQuNCwyNS41LDE1MiwyNy44LDE0OS41LDI3Ljh6IE0xMzQuOCwyNi42ICBjLTAuOC0xLjktMC44LTQuNi0wLjYtNi43YzAuNS0zLDIuNy00LjIsNS0zLjdjMS43LDAuNCwzLDEuNywzLjUsMy42YzAuNCwxLjYsMC4zLDQuNi0wLjgsNi42Yy0xLjYsMi45LTMuNCwzLjktNS41LDMuMSAgQzEzNSwyOS4xLDEzNS4xLDI3LjksMTM0LjgsMjYuNnogTTE2NCw1MWMtMS45LDEtNC41LDAuOC02LjYtMC44Yy0yLjctMi4yLTQuNC01LjgtNS41LTkuNmMtMS4xLTQuMi0wLjgtOC42LDAuMy0xMS43ICBjMS0yLjcsMi40LTQuMiw0LjEtMy44YzIuMSwwLjQsMy43LDIuNyw0LjIsNS44YzAuNSwzLTAuMiw2LjctMS4xLDEwaDBjMC45LDIsMywyLjEsNS4zLDIuMmM0LjUsMC4xLDEwLjEsMC4xLDEzLjYtMC44ICBjMi44LTAuNyw1LjEtMi42LDYuMS01LjFjMC43LTEuOSwwLjgtNC41LDAuMi03LjVjLTAuNC0xLjgtMS4zLTQuNS0yLjYtNi41Yy0xLjEtMS43LTMuMS0yLjctNS0yLjRjLTEuOSwwLjItMy40LDEuNi00LjMsMy43ICBjLTEsMi4zLTEuMyw1LjItMC42LDcuOWgwYy0wLjYsMC42LTIuMiwwLjItMy44LTAuOWMtMS4zLTAuNi0zLTIuNC0zLTQuNmMwLTIuMywxLjMtNS40LDMuNi02LjdjMS43LTAuOSw0LjQtMC44LDYuOSwwLjkgIGM0LjQsMi44LDYuOCw4LjMsNy44LDEzYzAuOCw0LjEtMC44LDguNC00LjIsMTAuOGMtMi45LDIuMS04LjMsMi4zLTEzLjcsMS42QzE2OS4zLDUyLjUsMTY1LjgsNTIsMTY0LDUxeiBNMTk4LjUsMjVjLTIuMy0wLjYtMy4zLTIuMy0yLjgtMy44ICBjMC40LTEuMSwxLjYtMS42LDIuNy0xLjRjMi41LDAuNSw0LDIuNywzLjMsNS4xQzIwMSwyNywyMDAuMywyNS40LDE5OC41LDI1eiBNMjIzLjUsMzZjLTEuOS0zLjQtMy03LjMtMy4xLTEwLjlDMjIwLjEsMTYsMjIzLDkuNSwyMjcsNiAgYzEuNC0xLjIsMy4zLTEuMiw0LjEtMC4zYzEuMiwxLjIsMC44LDMuNy0wLjYsNi42Yy0xLjIsMi40LTMuNCw2LjItNS4xLDEwLjFjLTEuNCwzLjMtMi42LDcuMi0yLDExICBDMjI0LjMsMzQuNSwyMjQuMiwzNS40LDIyMy41LDM2eiBNMjM4LDQ3YzMuMywxLjgsNy4yLDIuNSwxMS4xLDIuNGMyLjUtMC4xLDMuNy0xLjUsMy42LTIuNWMtMC4xLTEtMS40LTEuNS0zLjUtMS41aC0xMSAgYy0yLDAtNC4zLTAuNS01LjgtMS44Yy0yLjEtMS45LTMuMS01LjEtMi45LTljMC4zLTQuNywxLjUtOC42LDIuNi0xMS43YzAuNy0xLjcsMS45LTMuMSwzLjItMy42YzIsMC4xLDMsMS40LDIuOCwzICBjLTAuMywyLTEuNiw0LjctMi43LDYuOGMtMC45LDItMS44LDQtMi4zLDUuOGMtMC41LDIsMCwzLjksMS4zLDQuOWMxLjEsMC45LDMuMiwxLjEsNS4xLDFoMTQuM2MxLjgsMCwzLjktMC4zLDUuNS0xLjIgIGMzLjYtMS45LDUuOS01LjcsNy05LjljMS4zLTQuNywxLTkuMiwwLjYtMTJjLTAuNC0yLjMtMS45LTMuNS0zLjktMi42Yy0wLjgsMC40LTEuMSwxLjMtMC45LDIuNGMwLjEsMSwwLjEsMi4xLDAsMy4xICBjLTAuNCwyLjQtMi4xLDUuNC00LDEwYy0yLDUuMS0zLjMsOC43LTMuNSwxMC43Yy0wLjQsMi42LDAuNCwzLjYsMi40LDMuMWMwLjgtMC4yLDItMC42LDMuNC0xLjZjMy45LTIuOSw1LjMtOC44LDUuNC0xNC4zICBjMC00LjItMC41LTcuOC0yLjctMTAuOWMtMS43LTIuNC00LjQtMy40LTYuOC0yLjdjLTEuOCwwLjUtMywyLjItMy41LDQuNGMwLDEuMS0wLjQsMS42LTEsMS42Yy0wLjcsMC0wLjctMC41LTAuNS0xLjIgIGMwLjQtMS41LDEuNy0zLjEsMy40LTMuOGMyLjktMS4yLDYuOC0wLjIsOSwyLjdjMi45LDMuNywzLjgsOC4yLDMuOCwxMy4xYy0wLjEsNi4xLDEuNiwxMS42LDUuMSwxNi4zICBjMy4yLDQuMyw4LjUsNS45LDE0LjYsNC4yYzQuOC0xLjMsNy43LTQuOSw5LjUtOS4yYzEuMi0yLjksMi01LjksMi04LjNjMC4xLTEuNSwwLjYtMS42LDAuOC0wLjRjMC40LDIuMS0wLjUsNi0yLjksMTAuNiAgYy0yLjYsNS4xLTYuNyw4LjItMTEuNSw5LjNjLTcsMS41LTEzLjEtMC42LTE3LjItNS41Yy0zLTMuNi00LjktOC4yLTQuNi0xMy41Yy0wLjEtMC44LTEuNywwLTEuNiwwLjggIGMtMC40LDUuOS0zLjQsMTIuNS04LDE2QzI0NS41LDQ5LjIsMjQxLDQ4LjgsMjM4LDQ3eiIgLz48L3N2Zz4=" alt="Bismillah" class="bismillah-img">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgODAiPjxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0xNDkuNSwyNy44Yy0yLjQsMC00LjItMS4zLTQuMi0zLjdjMC0yLjgsMi01LDQuNy01YzIuMiwwLDQuMywxLjIsNC4zLDMuNUMxNTQuNCwyNS41LDE1MiwyNy44LDE0OS41LDI3Ljh6IE0xMzQuOCwyNi42ICBjLTAuOC0xLjktMC44LTQuNi0wLjYtNi43YzAuNS0zLDIuNy00LjIsNS0zLjdjMS43LDAuNCwzLDEuNywzLjUsMy42YzAuNCwxLjYsMC4zLDQuNi0wLjgsNi42Yy0xLjYsMi45LTMuNCwzLjktNS41LDMuMSAgQzEzNSwyOS4xLDEzNS4xLDI3LjksMTM0LjgsMjYuNnogTTE2NCw1MWMtMS45LDEtNC41LDAuOC02LjYtMC44Yy0yLjctMi4yLTQuNC01LjgtNS41LTkuNmMtMS4xLTQuMi0wLjgtOC42LDAuMy0xMS43ICBjMS0yLjcsMi40LTQuMiw0LjEtMy44YzIuMSwwLjQsMy43LDIuNyw0LjIsNS44YzAuNSwzLTAuMiw2LjctMS4xLDEwaDBjMC45LDIsMywyLjEsNS4zLDIuMmM0LjUsMC4xLDEwLjEsMC4xLDEzLjYtMC44ICBjMi44LTAuNyw1LjEtMi42LDYuMS01LjFjMC43LTEuOSwwLjgtNC41LDAuMi03LjVjLTAuNC0xLjgtMS4zLTQuNS0yLjYtNi41Yy0xLjEtMS43LTMuMS0yLjctNS0yLjRjLTEuOSwwLjItMy40LDEuNi00LjMsMy43ICBjLTEsMi4zLTEuMyw1LjItMC42LDcuOWgwYy0wLjYsMC42LTIuMiwwLjItMy44LTAuOWMtMS4zLTAuNi0zLTIuNC0zLTQuNmMwLTIuMywxLjMtNS40LDMuNi02LjdjMS43LTAuOSw0LjQtMC44LDYuOSwwLjkgIGM0LjQsMi44LDYuOCw4LjMsNy44LDEzYzAuOCw0LjEtMC44LDguNC00LjIsMTAuOGMtMi45LDIuMS04LjMsMi4zLTEzLjcsMS42QzE2OS4zLDUyLjUsMTY1LjgsNTIsMTY0LDUxeiBNMTk4LjUsMjVjLTIuMy0wLjYtMy4zLTIuMy0yLjgtMy44ICBjMC40LTEuMSwxLjYtMS42LDIuNy0xLjRjMi41LDAuNSw0LDIuNywzLjMsNS4xQzIwMSwyNywyMDAuMywyNS40LDE5OC41LDI1eiBNMjIzLjUsMz کھیلنےtMS45LTMuNC0zLTcuMy0zLjEtMTAuOUMyMjAuMSwxNiwyMjMsOS41LDIyNyw2ICBjMS40LTEuMiwzLjMtMS4yLDQuMS0wLjNjMS4yLDEuMiwwLjgsMy43LTAuNiw2LjZjLTEuMiwyLjQtMy40LDYuMi01LjEsMTAuMWMtMS40LDMuMy0yLjYsNy4yLTIsMTEgQzIyNC4zLDM0LjUsMjI0LjIsMzUuNCwyMjMuNSwzNnogTjIzOCw0N2MzLjMsMS44LDcuMiwyLjUsMTEuMSwyLjRjMi41LTAuMSwzLjctMS41LDMuNi0yLjVjLTAuMS0xLTEuNC0xLjUtMy41LTEuNWgtMTEgIGMtMiwwLTQuMy0wLjUtNS44LTEuOGMtMi4xLTEuOS0zLjEtNS4xLTIuOS05YzAuMy00LjcsMS41LTguNiwyLjYtMTEuN2MwLjctMS43LDEuOS0zLjEsMy4yLTMuNmMyLDAuMSwzLDEuNCwyLjgsMyAgIGMtMC4zLDItMS42LDQuNy0yLjcsNi44YzAtOSwy-.1.8-4.3-2.3,5.8c-0.5,2,0,3.9,1.3,4.9c1.1,0.9,3.2,1.1,5.1,1h14.3c1.8,0,3.9-0.3,5.5-1.2  c3.6-1.9,5.9-5.7,7-9.9c1.3-4.7,1-9.2,0.6-12c-0.4-2.3-1.9-3.5-3.9-2.6c-0.8,0.4-1.1,1.3-0.9,2.4c0.1,1,0.1,2.1,0,3.1  c-0.4,2.4-2.1,5.4-4,10c-2,5.1-3.3,8.7-3.5,10.7c-0.4,2.6,0.4,3.6,2.4,3.1c0.8-0.2,2-0.6,3.4-1.6c3.9-2.9,5.3-8.8,5.4-14.3  c0-4.2-0.5-7.8-2.7-10.9c-1.7-2.4-4.4-3.4-6.8-2.7c-1.8,0.5-3,2.2-3.5,4.4c0,1.1-0.4,1.6-1,1.6c-0.7,0-0.7-0.5-0.5-1.2  c0.4-1.5,1.7-3.1,3.4-3.8c2.9-1.2,6.8-0.2,9,2.7c2.9,3.7,3.8,8.2,3.8,13.1c-0.1,6.1,1.6,11.6,5.1,16.3  c3.2,4.3,8.5,5.9,14.6,4.2c4.8-1.3,7.7-4.9,9.5-9.2c1.2-2.9,2-5.9,2-8.3c0.1-1.5,0.6-1.6,0.8-0.4c0.4,2.1-0.5,6-2.9,10.6  c-2.6,5.1-6.7,8.2-11.5,9.3c-7,1.5-13.1-0.6-17.2-5.5c-3-3.6-4.9-8.2-4.6-13.5c-0.1-0.8-1.7,0-1.6,0.8  c-0.4,5.9-3.4,12.5-8,16C245.5,49.2,241,48.8,238,47z" /></svg>
     
     <h2 data-t="faraidTitle">Faraid Calculator</h2>
     <p class="hint" data-t="faraidHint">Enter the estate value and tick the surviving heirs. NoorCalc applies the Quranic fixed shares, then 'Asabah, 'Awl and Radd.</p>
@@ -473,7 +478,7 @@ footer{text-align:center; padding:26px 20px 10px; font-size:11.5px; color:#8a826
   <div class="card">
     <h2 data-t="hijriAgeTitle">Hijri Age</h2>
     <label data-t="dobLbl">Date of birth (Gregorian)</label>
-    <input type="date" id="dob">
+    <input type="text" id="dob" placeholder="YYYY-MM-DD">
     <button id="calcHijriAgeBtn" class="btn" data-t="calcAgeBtn">Calculate Hijri Age</button>
     <div id="hijriAgeResult"></div>
   </div>
@@ -486,7 +491,7 @@ footer{text-align:center; padding:26px 20px 10px; font-size:11.5px; color:#8a826
     </div>
     <div id="conv-g2h">
       <label data-t="pickDate">Pick a Gregorian date</label>
-      <input type="date" id="convGDate">
+      <input type="text" id="convGDate" placeholder="YYYY-MM-DD">
     </div>
     <div id="conv-h2g" style="display:none;">
       <div class="row3">
@@ -527,15 +532,15 @@ footer{text-align:center; padding:26px 20px 10px; font-size:11.5px; color:#8a826
 
 </main>
 
-<div class="privacy-strip no-print"><span data-t="privacyLine">🔒 Fully Offline. No data is stored or uploaded.</span></div>
-<footer class="no-print" data-t="footerLine">NoorCalc — Almahmudiyyah Press</footer>
+<div class="privacy-strip no-print"><span data-t="privacyLine">🔒 Offline. Stored only on your device — never uploaded.</span></div>
+<footer class="no-print" data-t="footerLine">NoorCalc — Almahmudiyyah Press, Bida</footer>
 
 <script>
-// --- INLINE PWA SERVICE WORKER ---
-if ('serviceWorker' in navigator) {
-  const swCode = `self.addEventListener('install',e=>e.waitUntil(caches.open('noorcalc').then(c=>c.addAll([location.href]))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
-  const blob = new Blob([swCode], {type: 'application/javascript'});
-  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+// --- SERVICE WORKER REGISTRATION (Requires external sw.js file) ---
+if ('serviceWorker' in navigator && !window.Capacitor) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  });
 }
 
 // --- HAPTIC ENGINE ---
@@ -570,9 +575,9 @@ function fmt(n){ return curSym + Number(n||0).toLocaleString('en-US', {maximumFr
 
 const T = {
 en: {
-  tagShort:"Almahmudiyyah Press", heroEyebrow:"Sadaqah Jariyah",
-  heroTitle:"Zakat, Faraid & Islamic tools — built for you.", heroDesc:"Everything runs on your device. Nothing you enter is ever saved or sent anywhere.",
-  tagOffline:"Works offline", tagPrivate:"Private",
+  tagShort:"Almahmudiyyah Press, Bida", heroEyebrow:"Sadaqah Jariyah",
+  heroTitle:"Zakat, Faraid & Islamic tools — built for you.", heroDesc:"Everything runs on your device. Your data is never uploaded.",
+  tagOffline:"Works offline", tagPrivate:"No data stored remotely",
   navZakat:"Zakat", navFaraid:"Faraid", navWidgets:"Widgets", navLivestock:"Livestock",
   nisabTitle:"Today's Nisab", nisabHint:"Nisab is the minimum wealth that makes Zakat due.",
   goldPriceLbl:"Gold price ({{CUR}} / gram)", silverPriceLbl:"Silver price ({{CUR}} / gram)", fetchLive:"↻ Try live price",
@@ -594,16 +599,16 @@ en: {
   secSiblings:"Siblings", hFBrothers:"Full brothers", hFSisters:"Full sisters", hCBrothers:"Paternal brothers", hCSisters:"Paternal sisters", hUSiblings:"Maternal siblings",
   faraidBtn:"Calculate", exportPdf:"⤓ Export", qiblaTitle:"Qibla Finder", qiblaHint:"Uses phone location.", qiblaPress:'Press "Find Qibla".', findQiblaBtn:"Find Qibla",
   hijriAgeTitle:"Hijri Age", dobLbl:"DOB (Gregorian)", calcAgeBtn:"Calculate", converterTitle:"Date Converter", convG2H:"Greg → Hijri", convH2G:"Hijri → Greg", pickDate:"Pick date", hDay:"Day", hMonth:"Month", hYear:"Year", convertBtn:"Convert",
-  ramadanTitle:"Ramadan Countdown", livestockTitle:"Livestock Zakat", livestockHint:"Grazing animals only.", lvGoatsTitle:"Goats/Sheep", lvGoatsText:"If grazing freely.", thCount:"Count", thDue:"Due", lvGoats400:"1 per 100 extra", lvChickenTitle:"Poultry/Fish", lvChickenText:"Treat as Trade Goods.", lvCattleTitle:"Cattle", lvCattle1:"1 tabi'", lvCattle2:"1 musinnah", lvCattle3:"2 tabi'", privacyLine:"🔒 Offline. No data stored.", footerLine:"NoorCalc — Almahmudiyyah Press"
+  ramadanTitle:"Ramadan Countdown", livestockTitle:"Livestock Zakat", livestockHint:"Grazing animals only.", lvGoatsTitle:"Goats/Sheep", lvGoatsText:"If grazing freely.", thCount:"Count", thDue:"Due", lvGoats400:"1 per 100 extra", lvChickenTitle:"Poultry/Fish", lvChickenText:"Treat as Trade Goods.", lvCattleTitle:"Cattle", lvCattle1:"1 tabi'", lvCattle2:"1 musinnah", lvCattle3:"2 tabi'", privacyLine:"🔒 Offline. Stored only on your device — never uploaded.", footerLine:"NoorCalc — Almahmudiyyah Press, Bida"
 },
 ha: {
-  tagShort:"Almahmudiyyah Press", heroEyebrow:"Sadaka Jariya", heroTitle:"Zakka, Gado & Kayan Musulunci.", heroDesc:"Ana yin komai a wayarka. Ba a tura bayanai.", tagOffline:"Yana aiki ba intanet", tagPrivate:"Sirri", navZakat:"Zakka", navFaraid:"Gado", navWidgets:"Kayan aiki", navLivestock:"Dabbobi", nisabTitle:"Nisabin Yau", nisabHint:"Nisabi shine mafi karancin dukiya.", goldPriceLbl:"Zinari ({{CUR}}/giram)", silverPriceLbl:"Azurfa ({{CUR}}/giram)", fetchLive:"↻ Jawo farashi", calcTitle:"Lissafin Zakka", zkTabWizard:"Dukiyar Shekara", zkTabFarm:"Girbin Gona", zkTabLedger:"Tarihi", wizS1Title:"1: Kudi & Banki", wizS1Hint:"Shigar da kudin hannu da banki.", wizS2Title:"2: Zinari/Azurfa", wizS2Hint:"Shigar da zinari da azurfa.", wizS3Title:"3: Kaddarorin Zamani", wizS3Hint:"Sanya darajar kasuwa.", lblCrypto:"Kudin Intanet ({{CUR}})", lblStocks:"Hannun Jari ({{CUR}})", lblPension:"Fensho ({{CUR}})", wizS4Title:"4: Kasuwanci", wizS4Hint:"Kayan sayarwa da bashi mai kyau.", wizS5Title:"5: Bashi", wizS5Hint:"Cire bashin kwanan nan.", wizS6Title:"6: Sakamako", wizNext:"Gaba →", wizPrev:"← Baya", wizSave:"💾 Ajiye", ledgerHint:"Tarihi na ajiye a wayarka.", clearLedgerBtn:"Goge Tarihi", cashOnHand:"Kudi + Banki ({{CUR}})", cashDebts:"Bashin da kake biya ({{CUR}})", nisabStandard:"Nisabi", optSilver:"Azurfa (Mafi kariya)", optGold:"Zinari", goldGrams:"Zinari (giram)", silverGrams:"Azurfa (giram)", tradeStock:"Kayan kasuwa ({{CUR}})", tradeCash:"Kudin da ake binka ({{CUR}})", tradeDebts:"Bashin kasuwanci ({{CUR}})", farmYield:"Girbi (kg)", farmIrrigation:"Ban ruwa?", optRain:"Sama (10%)", optArtificial:"Inji (5%)", optMixed:"Cakude (7.5%)", farmPrice:"Farashi/kg ({{CUR}})", farmHint:"Nisabi shine 653kg.", calcBtn:"Lissafa", frTabCalc:"Lissafin Gado", frTabWill:"1/3 Wasiyya", wsTitle:"Wasiyya", wsHint:"Zaka iya barin 1/3.", wsName:"Suna", wsEstate:"Jimillar Dukiya ({{CUR}})", wsBequest:"Wasiyya ({{CUR}})", wsBeneficiary:"Wanda zai karba", wsBtn:"Fitar", faraidTitle:"Lissafin Gado", faraidHint:"Rabon Alkur'ani, 'Asabah, 'Awl da Radd.", estateLbl:"Gado ({{CUR}})", madhabLbl:"Madhab", secSpouse:"Miji/Mata", hHusband:"Miji na raye", hWives:"Mata", secParents:"Iyaye/Kakanni", hFather:"Uba", hMother:"Uwa", hGrandfather:"Kakan uba", hGrandmother:"Kaka", secChildren:"'Ya'ya", hSons:"Maza", hDaughters:"Mata", secSiblings:"'Yan'uwa", hFBrothers:"Maza shakikai", hFSisters:"Mata shakikai", hCBrothers:"Maza (uba daya)", hCSisters:"Mata (uba daya)", hUSiblings:"Maza/Mata (uwa daya)", faraidBtn:"Lissafa", exportPdf:"⤓ Ajiye", qiblaTitle:"Nemo Qibla", qiblaHint:"Yana amfani da wuri.", qiblaPress:'Danna "Nemo".', findQiblaBtn:"Nemo Qibla", hijriAgeTitle:"Shekarun Hijra", dobLbl:"Ranar haihuwa", calcAgeBtn:"Lissafa", converterTitle:"Canza Rana", convG2H:"Miladiyya → Hijra", convH2G:"Hijra → Miladiyya", pickDate:"Zabi rana", hDay:"Rana", hMonth:"Wata", hYear:"Shekara", convertBtn:"Canza", ramadanTitle:"Kirgar Ramadan", livestockTitle:"Zakkar Dabbobi", livestockHint:"Dabbobin kiwo kawai.", lvGoatsTitle:"Awaki/Tumaki", lvGoatsText:"Idan suna kiwo.", thCount:"Adadi", thDue:"Zakka", lvGoats400:"1 akan 100", lvChickenTitle:"Kaji/Kifi", lvChickenText:"Kayan kasuwanci ne.", lvCattleTitle:"Shanu", lvCattle1:"Maraƙi 1", lvCattle2:"Saniya 1", lvCattle3:"Maruƙa 2", privacyLine:"🔒 Ba a daukar bayanai.", footerLine:"NoorCalc — Almahmudiyyah"
+  tagShort:"Almahmudiyyah Press, Bida", heroEyebrow:"Sadaka Jariya", heroTitle:"Zakka, Gado & Kayan Musulunci.", heroDesc:"Ana yin komai a wayarka. Ba a tura bayanai.", tagOffline:"Yana aiki ba intanet", tagPrivate:"Sirri", navZakat:"Zakka", navFaraid:"Gado", navWidgets:"Kayan aiki", navLivestock:"Dabbobi", nisabTitle:"Nisabin Yau", nisabHint:"Nisabi shine mafi karancin dukiya.", goldPriceLbl:"Zinari ({{CUR}}/giram)", silverPriceLbl:"Azurfa ({{CUR}}/giram)", fetchLive:"↻ Jawo farashi", calcTitle:"Lissafin Zakka", zkTabWizard:"Dukiyar Shekara", zkTabFarm:"Girbin Gona", zkTabLedger:"Tarihi", wizS1Title:"1: Kudi & Banki", wizS1Hint:"Shigar da kudin hannu da banki.", wizS2Title:"2: Zinari/Azurfa", wizS2Hint:"Shigar da zinari da azurfa.", wizS3Title:"3: Kaddarorin Zamani", wizS3Hint:"Sanya darajar kasuwa.", lblCrypto:"Kudin Intanet ({{CUR}})", lblStocks:"Hannun Jari ({{CUR}})", lblPension:"Fensho ({{CUR}})", wizS4Title:"4: Kasuwanci", wizS4Hint:"Kayan sayarwa da bashi mai kyau.", wizS5Title:"5: Bashi", wizS5Hint:"Cire bashin kwanan nan.", wizS6Title:"6: Sakamako", wizNext:"Gaba →", wizPrev:"← Baya", wizSave:"💾 Ajiye", ledgerHint:"Tarihi na ajiye a wayarka.", clearLedgerBtn:"Goge Tarihi", cashOnHand:"Kudi + Banki ({{CUR}})", cashDebts:"Bashin da kake biya ({{CUR}})", nisabStandard:"Nisabi", optSilver:"Azurfa (Mafi kariya)", optGold:"Zinari", goldGrams:"Zinari (giram)", silverGrams:"Azurfa (giram)", tradeStock:"Kayan kasuwa ({{CUR}})", tradeCash:"Kudin da ake binka ({{CUR}})", tradeDebts:"Bashin kasuwanci ({{CUR}})", farmYield:"Girbi (kg)", farmIrrigation:"Ban ruwa?", optRain:"Sama (10%)", optArtificial:"Inji (5%)", optMixed:"Cakude (7.5%)", farmPrice:"Farashi/kg ({{CUR}})", farmHint:"Nisabi shine 653kg.", calcBtn:"Lissafa", frTabCalc:"Lissafin Gado", frTabWill:"1/3 Wasiyya", wsTitle:"Wasiyya", wsHint:"Zaka iya barin 1/3.", wsName:"Suna", wsEstate:"Jimillar Dukiya ({{CUR}})", wsBequest:"Wasiyya ({{CUR}})", wsBeneficiary:"Wanda zai karba", wsBtn:"Fitar", faraidTitle:"Lissafin Gado", faraidHint:"Rabon Alkur'ani, 'Asabah, 'Awl da Radd.", estateLbl:"Gado ({{CUR}})", madhabLbl:"Madhab", secSpouse:"Miji/Mata", hHusband:"Miji na raye", hWives:"Mata", secParents:"Iyaye/Kakanni", hFather:"Uba", hMother:"Uwa", hGrandfather:"Kakan uba", hGrandmother:"Kaka", secChildren:"'Ya'ya", hSons:"Maza", hDaughters:"Mata", secSiblings:"'Yan'uwa", hFBrothers:"Maza shakikai", hFSisters:"Mata shakikai", hCBrothers:"Maza (uba daya)", hCSisters:"Mata (uba daya)", hUSiblings:"Maza/Mata (uwa daya)", faraidBtn:"Lissafa", exportPdf:"⤓ Ajiye", qiblaTitle:"Nemo Qibla", qiblaHint:"Yana amfani da wuri.", qiblaPress:'Danna "Nemo".', findQiblaBtn:"Nemo Qibla", hijriAgeTitle:"Shekarun Hijra", dobLbl:"Ranar haihuwa", calcAgeBtn:"Lissafa", converterTitle:"Canza Rana", convG2H:"Miladiyya → Hijra", convH2G:"Hijra → Miladiyya", pickDate:"Zabi rana", hDay:"Rana", hMonth:"Wata", hYear:"Shekara", convertBtn:"Canza", ramadanTitle:"Kirgar Ramadan", livestockTitle:"Zakkar Dabbobi", livestockHint:"Dabbobin kiwo kawai.", lvGoatsTitle:"Awaki/Tumaki", lvGoatsText:"Idan suna kiwo.", thCount:"Adadi", thDue:"Zakka", lvGoats400:"1 akan 100", lvChickenTitle:"Kaji/Kifi", lvChickenText:"Kayan kasuwanci ne.", lvCattleTitle:"Shanu", lvCattle1:"Maraƙi 1", lvCattle2:"Saniya 1", lvCattle3:"Maruƙa 2", privacyLine:"🔒 Offline. Stored only on your device — never uploaded.", footerLine:"NoorCalc — Almahmudiyyah"
 },
 yo: {
-  tagShort:"Almahmudiyyah Press", heroEyebrow:"Sadaqah Jariyah", heroTitle:"Zakat, Ogún & Irinṣẹ Islam.", heroDesc:"Gbogbo rẹ n ṣiṣẹ lori ẹrọ rẹ. A ko fi data rẹ ranṣẹ.", tagOffline:"N ṣiṣẹ offline", tagPrivate:"Asiri", navZakat:"Zakat", navFaraid:"Ogún", navWidgets:"Irinṣẹ", navLivestock:"Ẹran Ọsin", nisabTitle:"Nisab ti Òní", nisabHint:"Nisab ni owo ti o kere julọ fun Zakat.", goldPriceLbl:"Iye Wura ({{CUR}}/giramu)", silverPriceLbl:"Iye Fadaka ({{CUR}}/giramu)", fetchLive:"↻ Wa iye ayelujara", calcTitle:"Ẹrọ Ìṣirò Zakat", zkTabWizard:"Ọrọ Ọdun", zkTabFarm:"Irugbin", zkTabLedger:"Itan Zakat", wizS1Title:"1: Owo & Banki", wizS1Hint:"Kọ owo ti o wa lọwọ rẹ ati banki.", wizS2Title:"2: Wura/Fadaka", wizS2Hint:"Kọ wura ati fadaka ti o ni.", wizS3Title:"3: Ohun-ini Ode-oni", wizS3Hint:"Kọ iye ọja ti awọn ohun-ini rẹ.", lblCrypto:"Owo Intanẹẹti ({{CUR}})", lblStocks:"Iwe adehun owo ({{CUR}})", lblPension:"Owo ifẹyinti ({{CUR}})", wizS4Title:"4: Iṣowo", wizS4Hint:"Awọn ọja tita ati owo ti a jẹ ọ.", wizS5Title:"5: Gbèsè", wizS5Hint:"Yọ awọn gbèsè ti o sunmọ.", wizS6Title:"6: Esi Zakat", wizNext:"Iwaju →", wizPrev:"← Ẹyin", wizSave:"💾 Fi pamọ", ledgerHint:"Itan rẹ wa ni ori ẹrọ rẹ nikan.", clearLedgerBtn:"Paa Itan rẹ", cashOnHand:"Owo & Banki ({{CUR}})", cashDebts:"Gbèsè ({{CUR}})", nisabStandard:"Nisab wo?", optSilver:"Fadaka (Aabo)", optGold:"Wura", goldGrams:"Wura (giramu)", silverGrams:"Fadaka (giramu)", tradeStock:"Iye ọja ({{CUR}})", tradeCash:"Owo ti a jẹ ọ ({{CUR}})", tradeDebts:"Gbèsè iṣowo ({{CUR}})", farmYield:"Irugbin (kg)", farmIrrigation:"Omi wo?", optRain:"Ojo (10%)", optArtificial:"Ẹrọ (5%)", optMixed:"Adalu (7.5%)", farmPrice:"Iye/kg ({{CUR}})", farmHint:"Nisab jẹ 653kg.", calcBtn:"Ṣe Ìṣirò", frTabCalc:"Ẹrọ Ìṣirò Ogún", frTabWill:"1/3 Wasiyya", wsTitle:"Iwe Wasiyya", wsHint:"O le fi 1/3 ohun-ini rẹ silẹ.", wsName:"Orukọ rẹ", wsEstate:"Gbogbo Ohun-ini ({{CUR}})", wsBequest:"Owo Wasiyya ({{CUR}})", wsBeneficiary:"Ẹni ti yoo gba", wsBtn:"Ṣẹda Iwe", faraidTitle:"Ẹrọ Ìṣirò Ogún", faraidHint:"N pin ogún gẹgẹ bi Al-Qur'an.", estateLbl:"Ohun-ini to kù ({{CUR}})", madhabLbl:"Madhab", secSpouse:"Tọkọtaya", hHusband:"Ọkọ wa laaye", hWives:"Iyawo melo", secParents:"Awọn Obi", hFather:"Baba", hMother:"Iya", hGrandfather:"Baba Baba", hGrandmother:"Iya Iya", secChildren:"Awọn Ọmọ", hSons:"Ọmọkunrin", hDaughters:"Ọmọbinrin", secSiblings:"Ọmọ Iya/Baba", hFBrothers:"Arakunrin (Iya/Baba)", hFSisters:"Arabinrin (Iya/Baba)", hCBrothers:"Arakunrin (Baba)", hCSisters:"Arabinrin (Baba)", hUSiblings:"Ọmọ Iya", faraidBtn:"Pin Ogún", exportPdf:"⤓ Fi pamọ", qiblaTitle:"Wa Qibla", qiblaHint:"N lo ipo ẹrọ rẹ.", qiblaPress:'Tẹ "Wa Qibla".', findQiblaBtn:"Wa Qibla", hijriAgeTitle:"Ọjọ Ori Hijri", dobLbl:"Ọjọ ibi rẹ", calcAgeBtn:"Ṣe Ìṣirò", converterTitle:"Yi Ọjọ Pada", convG2H:"Gregorian → Hijri", convH2G:"Hijri → Gregorian", pickDate:"Mu Ọjọ", hDay:"Ọjọ", hMonth:"Oṣu", hYear:"Ọdun", convertBtn:"Yi Pada", ramadanTitle:"Kika Ramadan", livestockTitle:"Zakat Ẹran Ọsin", livestockHint:"Fun ẹran to n jẹko kiri nikan.", lvGoatsTitle:"Ewúrẹ/Agutan", lvGoatsText:"Ti wọn ba n jẹko.", thCount:"Iye", thDue:"Zakat", lvGoats400:"1 fun 100", lvChickenTitle:"Adie/Ẹja", lvChickenText:"Eyi jẹ iṣowo (2.5%).", lvCattleTitle:"Maalu", lvCattle1:"Maalu 1 kekere", lvCattle2:"Maalu 1 nla", lvCattle3:"Maalu 2 kekere", privacyLine:"🔒 Ko si data ti a gbe lọ.", footerLine:"NoorCalc — Almahmudiyyah"
+  tagShort:"Almahmudiyyah Press, Bida", heroEyebrow:"Sadaqah Jariyah", heroTitle:"Zakat, Ogún & Irinṣẹ Islam.", heroDesc:"Gbogbo rẹ n ṣiṣẹ lori ẹrọ rẹ. A ko fi data rẹ ranṣẹ.", tagOffline:"N ṣiṣẹ offline", tagPrivate:"Asiri", navZakat:"Zakat", navFaraid:"Ogún", navWidgets:"Irinṣẹ", navLivestock:"Ẹran Ọsin", nisabTitle:"Nisab ti Òní", nisabHint:"Nisab ni owo ti o kere julọ fun Zakat.", goldPriceLbl:"Iye Wura ({{CUR}}/giramu)", silverPriceLbl:"Iye Fadaka ({{CUR}}/giramu)", fetchLive:"↻ Wa iye ayelujara", calcTitle:"Ẹrọ Ìṣirò Zakat", zkTabWizard:"Ọrọ Ọdun", zkTabFarm:"Irugbin", zkTabLedger:"Itan Zakat", wizS1Title:"1: Owo & Banki", wizS1Hint:"Kọ owo ti o wa lọwọ rẹ ati banki.", wizS2Title:"2: Wura/Fadaka", wizS2Hint:"Kọ wura ati fadaka ti o ni.", wizS3Title:"3: Ohun-ini Ode-oni", wizS3Hint:"Kọ iye ọja ti awọn ohun-ini rẹ.", lblCrypto:"Owo Intanẹẹti ({{CUR}})", lblStocks:"Iwe adehun owo ({{CUR}})", lblPension:"Owo ifẹyinti ({{CUR}})", wizS4Title:"4: Iṣowo", wizS4Hint:"Awọn ọja tita ati owo ti a jẹ ọ.", wizS5Title:"5: Gbèsè", wizS5Hint:"Yọ awọn gbèsè ti o sunmọ.", wizS6Title:"6: Esi Zakat", wizNext:"Iwaju →", wizPrev:"← Ẹyin", wizSave:"💾 Fi pamọ", ledgerHint:"Itan rẹ wa ni ori ẹrọ rẹ nikan.", clearLedgerBtn:"Paa Itan rẹ", cashOnHand:"Owo & Banki ({{CUR}})", cashDebts:"Gbèsè ({{CUR}})", nisabStandard:"Nisab wo?", optSilver:"Fadaka (Aabo)", optGold:"Wura", goldGrams:"Wura (giramu)", silverGrams:"Fadaka (giramu)", tradeStock:"Iye ọja ({{CUR}})", tradeCash:"Owo ti a jẹ ọ ({{CUR}})", tradeDebts:"Gbèsè iṣowo ({{CUR}})", farmYield:"Irugbin (kg)", farmIrrigation:"Omi wo?", optRain:"Ojo (10%)", optArtificial:"Ẹrọ (5%)", optMixed:"Adalu (7.5%)", farmPrice:"Iye/kg ({{CUR}})", farmHint:"Nisab jẹ 653kg.", calcBtn:"Ṣe Ìṣirò", frTabCalc:"Ẹrọ Ìṣirò Ogún", frTabWill:"1/3 Wasiyya", wsTitle:"Iwe Wasiyya", wsHint:"O le fi 1/3 ohun-ini rẹ silẹ.", wsName:"Orukọ rẹ", wsEstate:"Gbogbo Ohun-ini ({{CUR}})", wsBequest:"Owo Wasiyya ({{CUR}})", wsBeneficiary:"Ẹni ti yoo gba", wsBtn:"Ṣẹda Iwe", faraidTitle:"Ẹrọ Ìṣirò Ogún", faraidHint:"N pin ogún gẹgẹ bi Al-Qur'an.", estateLbl:"Ohun-ini to kù ({{CUR}})", madhabLbl:"Madhab", secSpouse:"Tọkọtaya", hHusband:"Ọkọ wa laaye", hWives:"Iyawo melo", secParents:"Awọn Obi", hFather:"Baba", hMother:"Iya", hGrandfather:"Baba Baba", hGrandmother:"Iya Iya", secChildren:"Awọn Ọmọ", hSons:"Ọmọkunrin", hDaughters:"Ọmọbinrin", secSiblings:"Ọmọ Iya/Baba", hFBrothers:"Arakunrin (Iya/Baba)", hFSisters:"Arabinrin (Iya/Baba)", hCBrothers:"Arakunrin (Baba)", hCSisters:"Arabinrin (Baba)", hUSiblings:"Ọmọ Iya", faraidBtn:"Pin Ogún", exportPdf:"⤓ Fi pamọ", qiblaTitle:"Wa Qibla", qiblaHint:"N lo ipo ẹrọ rẹ.", qiblaPress:'Tẹ "Wa Qibla".', findQiblaBtn:"Wa Qibla", hijriAgeTitle:"Ọjọ Ori Hijri", dobLbl:"Ọjọ ibi rẹ", calcAgeBtn:"Ṣe Ìṣirò", converterTitle:"Yi Ọjọ Pada", convG2H:"Gregorian → Hijri", convH2G:"Hijri → Gregorian", pickDate:"Mu Ọjọ", hDay:"Ọjọ", hMonth:"Oṣu", hYear:"Ọdun", convertBtn:"Yi Pada", ramadanTitle:"Kika Ramadan", livestockTitle:"Zakat Ẹran Ọsin", livestockHint:"Fun ẹran to n jẹko kiri nikan.", lvGoatsTitle:"Ewúrẹ/Agutan", lvGoatsText:"Ti wọn ba n jẹko.", thCount:"Iye", thDue:"Zakat", lvGoats400:"1 fun 100", lvChickenTitle:"Adie/Ẹja", lvChickenText:"Eyi jẹ iṣowo (2.5%).", lvCattleTitle:"Maalu", lvCattle1:"Maalu 1 kekere", lvCattle2:"Maalu 1 nla", lvCattle3:"Maalu 2 kekere", privacyLine:"🔒 Offline. Stored only on your device — never uploaded.", footerLine:"NoorCalc — Almahmudiyyah"
 },
 ig: {
-  tagShort:"Almahmudiyyah Press", heroEyebrow:"Sadaqah Jariyah", heroTitle:"Zakat, Eketa & Ngwaọrụ Islam.", heroDesc:"Ihe niile na-arụ ọrụ na ekwentị gị. E nweghị data a na-eziga.", tagOffline:"Na-arụ offline", tagPrivate:"Nzuzo", navZakat:"Zakat", navFaraid:"Eketa", navWidgets:"Ngwaọrụ", navLivestock:"Anụ ụlọ", nisabTitle:"Nisab nke Taa", nisabHint:"Nisab bụ ego kacha nta maka Zakat.", goldPriceLbl:"Ọnụahịa Ọlaedo ({{CUR}}/gram)", silverPriceLbl:"Ọnụahịa Ọlaọcha ({{CUR}}/gram)", fetchLive:"↻ Chọta ọnụahịa", calcTitle:"Ngwa Ngụkọ Zakat", zkTabWizard:"Akụ na Ụba Afọ", zkTabFarm:"Owuwe Ihe Ubi", zkTabLedger:"Akụkọ Zakat", wizS1Title:"1: Ego & Ụlọ Akụ", wizS1Hint:"Tinye ego ị nwere na nke ụlọ akụ.", wizS2Title:"2: Ọlaedo/Ọlaọcha", wizS2Hint:"Tinye ọlaedo na ọlaọcha gị.", wizS3Title:"3: Akụ nke Oge A", wizS3Hint:"Tinye ọnụahịa ahịa ugbu a.", lblCrypto:"Ego Ịntanetị ({{CUR}})", lblStocks:"Mbịne Ego/Oke ({{CUR}})", lblPension:"Ego ezumike nka ({{CUR}})", wizS4Title:"4: Azụmahịa", wizS4Hint:"Ihe ahịa na ego a ji gị.", wizS5Title:"5: Ụgwọ", wizS5Hint:"Wepụ ụgwọ ị ga-akwụ n'isi nso.", wizS6Title:"6: Nsonaazụ", wizNext:"Gaba →", wizPrev:"← Laa azụ", wizSave:"💾 Chekwaa", ledgerHint:"Akụkọ gị dị na ekwentị gị.", clearLedgerBtn:"Kpochapụ Akụkọ", cashOnHand:"Ego + Ụlọ Akụ ({{CUR}})", cashDebts:"Ụgwọ dị nso ({{CUR}})", nisabStandard:"Nisab nke ị ga-eji?", optSilver:"Ọlaọcha (Nchekwa)", optGold:"Ọlaedo", goldGrams:"Ọlaedo (gram)", silverGrams:"Ọlaọcha (gram)", tradeStock:"Ọnụahịa ngwa ahịa ({{CUR}})", tradeCash:"Ego a ji gị ({{CUR}})", tradeDebts:"Ụgwọ azụmahịa ({{CUR}})", farmYield:"Owuwe ihe ubi (kg)", farmIrrigation:"Mmiri a ṅụrụ?", optRain:"Mmiri ozuzo (10%)", optArtificial:"Ngwaọrụ (5%)", optMixed:"Ngwakọta (7.5%)", farmPrice:"Ọnụahịa/kg ({{CUR}})", farmHint:"Nisab bụ 653kg.", calcBtn:"Ngụkọ", frTabCalc:"Ngwa Ngụkọ Eketa", frTabWill:"1/3 Wasiyya", wsTitle:"Akwụkwọ Wasiyya", wsHint:"Ị nwere ike inye 1/3 nke akụ gị.", wsName:"Aha gị", wsEstate:"Ngụkọta Akụ ({{CUR}})", wsBequest:"Ego Wasiyya ({{CUR}})", wsBeneficiary:"Onye ga-enweta ya", wsBtn:"Mepụta", faraidTitle:"Ngwa Ngụkọ Eketa", faraidHint:"Na-ekewa akụ site na Quran.", estateLbl:"Akụ fọdụrụnụ ({{CUR}})", madhabLbl:"Madhab", secSpouse:"Di na Nwunye", hHusband:"Di dị ndụ", hWives:"Ndị nwunye ole", secParents:"Ndị Nne na Nna", hFather:"Nna", hMother:"Nne", hGrandfather:"Nna Nna", hGrandmother:"Nne Nne", secChildren:"Ụmụ", hSons:"Ụmụ nwoke", hDaughters:"Ụmụ nwanyị", secSiblings:"Ụmụnne", hFBrothers:"Ụmụnne nwoke (Nne/Nna)", hFSisters:"Ụmụnne nwanyị (Nne/Nna)", hCBrothers:"Ụmụnne nwoke (Nna)", hCSisters:"Ụmụnne nwanyị (Nna)", hUSiblings:"Ụmụnne (Nne)", faraidBtn:"Kewaa Eketa", exportPdf:"⤓ Chekwaa", qiblaTitle:"Chọta Qibla", qiblaHint:"Na-eji ọnọdụ ekwentị gị.", qiblaPress:'Pịa "Chọta Qibla".', findQiblaBtn:"Chọta Qibla", hijriAgeTitle:"Afọ Hijri", dobLbl:"Ụbọchị ọmụmụ gị", calcAgeBtn:"Ngụkọ", converterTitle:"Gbanwee Ụbọchị", convG2H:"Gregorian → Hijri", convH2G:"Hijri → Gregorian", pickDate:"Họrọ ụbọchị", hDay:"Ụbọchị", hMonth:"Ọnwa", hYear:"Afọ", convertBtn:"Gbanwee", ramadanTitle:"Ngụkọ Ramadan", livestockTitle:"Zakat Anụ Ụlọ", livestockHint:"Maka anụ na-ata ahịhịa.", lvGoatsTitle:"Ewu/Atụrụ", lvGoatsText:"Ọ bụrụ na ha na-ata ahịhịa.", thCount:"Ọnụọgụ", thDue:"Zakat", lvGoats400:"1 maka 100", lvChickenTitle:"Ọkụkọ/Azụ", lvChickenText:"Nke a bụ Azụmahịa (2.5%).", lvCattleTitle:"Ehi", lvCattle1:"Ehi 1 obere", lvCattle2:"Ehi 1 ibu", lvCattle3:"Ehi 2 obere", privacyLine:"🔒 Enweghị data a na-eziga.", footerLine:"NoorCalc — Almahmudiyyah"
+  tagShort:"Almahmudiyyah Press, Bida", heroEyebrow:"Sadaqah Jariyah", heroTitle:"Zakat, Eketa & Ngwaọrụ Islam.", heroDesc:"Ihe niile na-arụ ọrụ na ekwentị gị. E nweghị data a na-eziga.", tagOffline:"Na-arụ offline", tagPrivate:"Nzuzo", navZakat:"Zakat", navFaraid:"Eketa", navWidgets:"Ngwaọrụ", navLivestock:"Anụ ụlọ", nisabTitle:"Nisab nke Taa", nisabHint:"Nisab bụ ego kacha nta maka Zakat.", goldPriceLbl:"Ọnụahịa Ọlaedo ({{CUR}}/gram)", silverPriceLbl:"Ọnụahịa Ọlaọcha ({{CUR}}/gram)", fetchLive:"↻ Chọta ọnụahịa", calcTitle:"Ngwa Ngụkọ Zakat", zkTabWizard:"Akụ na Ụba Afọ", zkTabFarm:"Owuwe Ihe Ubi", zkTabLedger:"Akụkọ Zakat", wizS1Title:"1: Ego & Ụlọ Akụ", wizS1Hint:"Tinye ego ị nwere na nke ụlọ akụ.", wizS2Title:"2: Ọlaedo/Ọlaọcha", wizS2Hint:"Tinye ọlaedo na ọlaọcha gị.", wizS3Title:"3: Akụ nke Oge A", wizS3Hint:"Tinye ọnụahịa ahịa ugbu a.", lblCrypto:"Ego Ịntanetị ({{CUR}})", lblStocks:"Mbịne Ego/Oke ({{CUR}})", lblPension:"Ego ezumike nka ({{CUR}})", wizS4Title:"4: Azụmahịa", wizS4Hint:"Ihe ahịa na ego a ji gị.", wizS5Title:"5: Ụgwọ", wizS5Hint:"Wepụ ụgwọ ị ga-akwụ n'isi nso.", wizS6Title:"6: Nsonaazụ", wizNext:"Gaba →", wizPrev:"← Laa azụ", wizSave:"💾 Chekwaa", ledgerHint:"Akụkọ gị dị na ekwentị gị.", clearLedgerBtn:"Kpochapụ Akụkọ", cashOnHand:"Ego + Ụlọ Akụ ({{CUR}})", cashDebts:"Ụgwọ dị nso ({{CUR}})", nisabStandard:"Nisab nke ị ga-eji?", optSilver:"Ọlaọcha (Nchekwa)", optGold:"Ọlaedo", goldGrams:"Ọlaedo (gram)", silverGrams:"Ọlaọcha (gram)", tradeStock:"Ọnụahịa ngwa ahịa ({{CUR}})", tradeCash:"Ego a ji gị ({{CUR}})", tradeDebts:"Ụgwọ azụmahịa ({{CUR}})", farmYield:"Owuwe ihe ubi (kg)", farmIrrigation:"Mmiri a ṅụrụ?", optRain:"Mmiri ozuzo (10%)", optArtificial:"Ngwaọrụ (5%)", optMixed:"Ngwakọta (7.5%)", farmPrice:"Ọnụahịa/kg ({{CUR}})", farmHint:"Nisab bụ 653kg.", calcBtn:"Ngụkọ", frTabCalc:"Ngwa Ngụkọ Eketa", frTabWill:"1/3 Wasiyya", wsTitle:"Akwụkwọ Wasiyya", wsHint:"Ị nwere ike inye 1/3 nke akụ gị.", wsName:"Aha gị", wsEstate:"Ngụkọta Akụ ({{CUR}})", wsBequest:"Ego Wasiyya ({{CUR}})", wsBeneficiary:"Onye ga-enweta ya", wsBtn:"Mepụta", faraidTitle:"Ngwa Ngụkọ Eketa", faraidHint:"Na-ekewa akụ site na Quran.", estateLbl:"Akụ fọdụrụnụ ({{CUR}})", madhabLbl:"Madhab", secSpouse:"Di na Nwunye", hHusband:"Di dị ndụ", hWives:"Ndị nwunye ole", secParents:"Ndị Nne na Nna", hFather:"Nna", hMother:"Nne", hGrandfather:"Nna Nna", hGrandmother:"Nne Nne", secChildren:"Ụmụ", hSons:"Ụmụ nwoke", hDaughters:"Ụmụ nwanyị", secSiblings:"Ụmụnne", hFBrothers:"Ụmụnne nwoke (Nne/Nna)", hFSisters:"Ụmụnne nwanyị (Nne/Nna)", hCBrothers:"Ụmụnne nwoke (Nna)", hCSisters:"Ụmụnne nwanyị (Nna)", hUSiblings:"Ụmụnne (Nne)", faraidBtn:"Kewaa Eketa", exportPdf:"⤓ Chekwaa", qiblaTitle:"Chọta Qibla", qiblaHint:"Na-eji ọnọdụ ekwentị gị.", qiblaPress:'Pịa "Chọta Qibla".', findQiblaBtn:"Chọta Qibla", hijriAgeTitle:"Afọ Hijri", dobLbl:"Ụbọchị ọmụmụ gị", calcAgeBtn:"Ngụkọ", converterTitle:"Gbanwee Ụbọchị", convG2H:"Gregorian → Hijri", convH2G:"Hijri → Gregorian", pickDate:"Họrọ ụbọchị", hDay:"Ụbọchị", hMonth:"Ọnwa", hYear:"Afọ", convertBtn:"Gbanwee", ramadanTitle:"Ngụkọ Ramadan", livestockTitle:"Zakat Anụ Ụlọ", livestockHint:"Maka anụ na-ata ahịhịa.", lvGoatsTitle:"Ewu/Atụrụ", lvGoatsText:"Ọ bụrụ na ha na-ata ahịhịa.", thCount:"Ọnụọgụ", thDue:"Zakat", lvGoats400:"1 maka 100", lvChickenTitle:"Ọkụkọ/Azụ", lvChickenText:"Nke a bụ Azụmahịa (2.5%).", lvCattleTitle:"Ehi", lvCattle1:"Ehi 1 obere", lvCattle2:"Ehi 1 ibu", lvCattle3:"Ehi 2 obere", privacyLine:"🔒 Offline. Stored only on your device — never uploaded.", footerLine:"NoorCalc — Almahmudiyyah"
 }
 };
 let lang = 'en';
@@ -769,7 +774,38 @@ function generateWasiyya() {
   if(bequest > estate / 3) { alert(`Limit Exceeded: Max 1/3 (${fmt(estate / 3)}).`); return; }
 
   document.getElementById('print-area').innerHTML = `<h1>Last Will and Testament (Wasiyya)</h1><p>I, <b>${name}</b>, being of sound mind and memory, declare this to be my Last Will and Testament.</p><p>I direct that after payment of my funeral expenses and legally binding debts, my estate shall be divided as follows:</p><p><b>1. Bequest (Wasiyya):</b> I bequeath the sum of <b>${fmt(bequest)}</b> (which does not exceed one-third of my total estate) to <b>${ben}</b>.</p><p><b>2. Inheritance (Faraid):</b> I direct that the absolute remainder of my estate be distributed strictly in accordance with Islamic Law (Faraid) amongst my rightful surviving heirs.</p><div class="sig-box"><div class="sig-line">Signature of Testator<br>Date: ${new Date().toLocaleDateString()}</div><div class="sig-line">Signature of Witness 1</div><div class="sig-line">Signature of Witness 2</div></div>`;
-  document.body.classList.add('print-doc', 'print-wasiyya'); window.print(); setTimeout(() => document.body.classList.remove('print-doc', 'print-wasiyya'), 500);
+  document.body.classList.remove('print-faraid');
+  document.body.classList.add('print-doc', 'print-wasiyya'); 
+  window.print(); 
+  setTimeout(() => document.body.classList.remove('print-doc', 'print-wasiyya'), 500);
+}
+
+function generateFaraidReport() {
+  vibe();
+  const estate = parseFloat(document.getElementById('estateValue').value)||0;
+  const resultBox = document.getElementById('faraidResult');
+  if(!resultBox.innerHTML.trim() || (resultBox.querySelector('.sub') && resultBox.querySelector('.sub').textContent.includes('No heirs'))) {
+    alert('Please calculate shares first.');
+    return;
+  }
+
+  const tableElem = resultBox.querySelector('table');
+  if(!tableElem) { alert('Please calculate shares first.'); return; }
+
+  const clonedTable = tableElem.cloneNode(true);
+  clonedTable.querySelectorAll('.dalil-badge').forEach(b => b.remove());
+
+  let printHtml = `<h1>Islamic Inheritance (Faraid) Distribution Certificate</h1>`;
+  printHtml += `<p><b>Net Estate Value:</b> ${fmt(estate)}</p>`;
+  printHtml += `<p>Distributed strictly in accordance with Quranic fixed shares, 'Asabah, 'Awl, and Radd.</p>`;
+  printHtml += `<div style="margin: 20px 0;">${clonedTable.outerHTML}</div>`;
+  printHtml += `<div class="sig-box"><div class="sig-line">Prepared By / Administrator<br>Date: ${new Date().toLocaleDateString()}</div><div class="sig-line">Witness 1</div><div class="sig-line">Witness 2</div></div>`;
+
+  document.getElementById('print-area').innerHTML = printHtml;
+  document.body.classList.remove('print-wasiyya');
+  document.body.classList.add('print-doc', 'print-faraid');
+  window.print();
+  setTimeout(() => document.body.classList.remove('print-doc', 'print-faraid'), 500);
 }
 
 const heirState = {husband:false, wives:0, father:false, mother:false, grandfather:false, grandmother:false, sons:0, daughters:0, fbrothers:0, fsisters:0, cbrothers:0, csisters:0, usiblings:0};
@@ -790,43 +826,43 @@ function calcFaraid(){
 
   const dQ12 = "Quran Chapter 4, Verse 12", dQ11 = "Quran Chapter 4, Verse 11", dQ176 = "Quran Chapter 4, Verse 176", dHadith = "Based on authentic Hadith", dIjma = "Scholarly consensus";
 
-  if(h.husband) shares.push({name:T[lang].hHusband, fraction:hasDescendants ? 1/4 : 1/2, dalil: dQ12});
-  if(h.wives>0) shares.push({name:T[lang].hWives+' ('+h.wives+')', fraction:hasDescendants ? 1/8 : 1/4, dalil: dQ12});
-  if(h.mother) shares.push({name:T[lang].hMother, fraction:(hasDescendants || (h.fbrothers+h.fsisters+h.cbrothers+h.csisters+h.usiblings)>=2) ? 1/6 : 1/3, dalil: dQ11});
+  if(h.husband) shares.push({id: 'husband', name:T[lang].hHusband, fraction:hasDescendants ? 1/4 : 1/2, dalil: dQ12});
+  if(h.wives>0) shares.push({id: 'wives', name:T[lang].hWives+' ('+h.wives+')', fraction:hasDescendants ? 1/8 : 1/4, dalil: dQ12});
+  if(h.mother) shares.push({id: 'mother', name:T[lang].hMother, fraction:(hasDescendants || (h.fbrothers+h.fsisters+h.cbrothers+h.csisters+h.usiblings)>=2) ? 1/6 : 1/3, dalil: dQ11});
   
   if(fatherPresent){
-    if(hasSons) shares.push({name:T[lang].hFather, fraction:1/6, dalil: dQ11});
-    else if(h.daughters>0){ shares.push({name:T[lang].hFather, fraction:1/6, dalil: dQ11}); residuaries.push({name:T[lang].hFather+' (Residuary)', weight:1, dalil: dHadith}); } 
+    if(hasSons) shares.push({id: 'father', name:T[lang].hFather, fraction:1/6, dalil: dQ11});
+    else if(h.daughters>0){ shares.push({id: 'father', name:T[lang].hFather, fraction:1/6, dalil: dQ11}); residuaries.push({name:T[lang].hFather+' (Residuary)', weight:1, dalil: dHadith}); } 
     else residuaries.push({name:T[lang].hFather+' (Residuary)', weight:1, dalil: dHadith});
   }
 
   if(grandfatherCounts){
-    if(hasSons) shares.push({name:T[lang].hGrandfather, fraction:1/6, dalil: dIjma});
-    else if(h.daughters>0){ shares.push({name:T[lang].hGrandfather, fraction:1/6, dalil: dIjma}); residuaries.push({name:T[lang].hGrandfather+' (Residuary)', weight:1}); } 
+    if(hasSons) shares.push({id: 'grandfather', name:T[lang].hGrandfather, fraction:1/6, dalil: dIjma});
+    else if(h.daughters>0){ shares.push({id: 'grandfather', name:T[lang].hGrandfather, fraction:1/6, dalil: dIjma}); residuaries.push({name:T[lang].hGrandfather+' (Residuary)', weight:1}); } 
     else residuaries.push({name:T[lang].hGrandfather+' (Residuary)', weight:1});
   }
 
-  if(grandmotherCounts) shares.push({name:T[lang].hGrandmother, fraction:1/6, dalil: dHadith});
-  if(h.daughters>0 && !hasSons) shares.push({name:T[lang].hDaughters+' ('+h.daughters+')', fraction:h.daughters===1 ? 1/2 : 2/3, dalil: dQ11});
+  if(grandmotherCounts) shares.push({id: 'grandmother', name:T[lang].hGrandmother, fraction:1/6, dalil: dHadith});
+  if(h.daughters>0 && !hasSons) shares.push({id: 'daughters', name:T[lang].hDaughters+' ('+h.daughters+')', fraction:h.daughters===1 ? 1/2 : 2/3, dalil: dQ11});
   
   if(hasSons){
     residuaries.push({name:T[lang].hSons, weight: h.sons*2, dalil: dQ11});
     if(h.daughters>0) residuaries.push({name:T[lang].hDaughters+' (With brothers)', weight: h.daughters*1, dalil: dQ11});
   }
 
-  if(fsistersCount>0 && fbrothersCount===0) shares.push({name:T[lang].hFSisters, fraction:fsistersCount===1 ? 1/2 : 2/3, dalil: dQ176});
+  if(fsistersCount>0 && fbrothersCount===0) shares.push({id: 'fsisters', name:T[lang].hFSisters, fraction:fsistersCount===1 ? 1/2 : 2/3, dalil: dQ176});
   if(fbrothersCount>0){
     residuaries.push({name:T[lang].hFBrothers, weight:fbrothersCount*2, dalil: dQ176});
     if(fsistersCount>0) residuaries.push({name:T[lang].hFSisters, weight:fsistersCount*1, dalil: dQ176});
   }
 
-  if(csistersCount>0 && cbrothersCount===0) shares.push({name:T[lang].hCSisters, fraction:csistersCount===1 ? 1/2 : 2/3, dalil: dQ176});
+  if(csistersCount>0 && cbrothersCount===0) shares.push({id: 'csisters', name:T[lang].hCSisters, fraction:csistersCount===1 ? 1/2 : 2/3, dalil: dQ176});
   if(cbrothersCount>0){
     residuaries.push({name:T[lang].hCBrothers, weight:cbrothersCount*2, dalil: dQ176});
     if(csistersCount>0) residuaries.push({name:T[lang].hCSisters, weight:csistersCount*1, dalil: dQ176});
   }
 
-  if(usiblingsCount>0) shares.push({name:T[lang].hUSiblings, fraction:usiblingsCount===1 ? 1/6 : 1/3, dalil: dQ12});
+  if(usiblingsCount>0) shares.push({id: 'usiblings', name:T[lang].hUSiblings, fraction:usiblingsCount===1 ? 1/6 : 1/3, dalil: dQ12});
 
   let totalFraction = shares.reduce((a,sh)=>a+sh.fraction,0), awlFactor = 1;
   if(totalFraction > 1){ awlFactor = 1/totalFraction; totalFraction = 1; }
@@ -835,7 +871,7 @@ function calcFaraid(){
   const totalResiduaryWeight = residuaries.reduce((a,r)=>a+r.weight,0);
 
   if(remainder > 0.0000001 && totalResiduaryWeight===0){
-    const nonSpouseShares = shares.filter(sh=> !sh.name.includes('Husband') && !sh.name.includes('Wives') && !sh.name.includes('Miji') && !sh.name.includes('Mata'));
+    const nonSpouseShares = shares.filter(sh => sh.id !== 'husband' && sh.id !== 'wives');
     const nonSpouseTotal = nonSpouseShares.reduce((a,sh)=>a+sh.fraction,0);
     if(nonSpouseShares.length>0 && nonSpouseTotal>0){
       const raddFactor = (nonSpouseTotal + remainder) / nonSpouseTotal;
@@ -860,7 +896,7 @@ function calcFaraid(){
   let treeHtml = `<div class="tree-level"><div class="tree-node tree-root">Deceased Estate<span class="amt">${fmt(estate)}</span></div></div><div class="tree-level">`;
   
   rows.forEach(r=>{
-    tableHtml += `<tr><td>${r.name} <button type="button" class="dalil-badge" data-dalil="${r.dalil}">🔊 Dalil</button></td><td>${r.fracLabel}</td><td class="num">${fmt(r.amount)}</td></tr>`;
+    tableHtml += `<tr><td><div><b>${r.name}</b></div><small style="color:var(--gold); display:block; margin:2px 0 6px;">${r.dalil}</small><button type="button" class="dalil-badge" data-dalil="${r.dalil}">🔊 Listen Dalil</button></td><td>${r.fracLabel}</td><td class="num">${fmt(r.amount)}</td></tr>`;
     treeHtml += `<div class="tree-node">${r.name}<span class="amt">${fmt(r.amount)}</span></div>`;
   });
   
@@ -936,7 +972,9 @@ function calcHijriAge(){
   vibe();
   const dobStr = document.getElementById('dob').value;
   if(!dobStr) return;
-  const parts = dobStr.split('-').map(Number), birthJD = gregorianToJD(parts[0],parts[1],parts[2]), now = new Date(), todayJD = gregorianToJD(now.getFullYear(), now.getMonth()+1, now.getDate());
+  const parts = dobStr.split('-').map(Number);
+  if(parts.length < 3 || isNaN(parts[0])) return;
+  const birthJD = gregorianToJD(parts[0],parts[1],parts[2]), now = new Date(), todayJD = gregorianToJD(now.getFullYear(), now.getMonth()+1, now.getDate());
   const birthHijri = jdToHijri(birthJD), todayHijri = jdToHijri(todayJD);
   let years = todayHijri.year - birthHijri.year, months = todayHijri.month - birthHijri.month, days = todayHijri.day - birthHijri.day;
   if(days<0){ months--; days += hijriMonthLength(todayHijri.year, ((todayHijri.month-2+12)%12)+1); }
@@ -944,12 +982,21 @@ function calcHijriAge(){
   document.getElementById('hijriAgeResult').innerHTML = `<div class="result"><div class="label">Hijri Age</div><div class="big">${years} years</div><div class="sub">${birthHijri.day} ${HIJRI_MONTHS_EN[birthHijri.month-1]} ${birthHijri.year} AH</div></div>`;
 }
 
+function setConvKind(k){
+  document.querySelectorAll('.cv-sub').forEach(b => b.classList.toggle('active', b.dataset.k === k));
+  document.getElementById('conv-g2h').style.display = k === 'g2h' ? '' : 'none';
+  document.getElementById('conv-h2g').style.display = k === 'h2g' ? '' : 'none';
+}
+
 function doConvert(){
   vibe();
   const kind = document.querySelector('.cv-sub.active').dataset.k, box = document.getElementById('convResult');
   if(kind==='g2h'){
-    if(!document.getElementById('convGDate').value) return;
-    const parts = document.getElementById('convGDate').value.split('-').map(Number), hij = jdToHijri(gregorianToJD(parts[0],parts[1],parts[2]));
+    const val = document.getElementById('convGDate').value;
+    if(!val) return;
+    const parts = val.split('-').map(Number);
+    if(parts.length < 3) return;
+    const hij = jdToHijri(gregorianToJD(parts[0],parts[1],parts[2]));
     box.innerHTML = `<div class="result"><div class="label">Hijri Date</div><div class="big">${hij.day} ${HIJRI_MONTHS_EN[hij.month-1]} ${hij.year} AH</div></div>`;
   } else {
     if(!document.getElementById('hYear').value) return;
@@ -1009,9 +1056,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
   
-  document.getElementById('faraidPdfBtn').addEventListener('click', () => {
-    vibe(); document.body.classList.add('print-doc', 'print-faraid'); window.print(); setTimeout(() => document.body.classList.remove('print-doc', 'print-faraid'), 500);
-  });
+  document.getElementById('faraidPdfBtn').addEventListener('click', generateFaraidReport);
 
   document.getElementById('findQiblaBtn').addEventListener('click', findQibla);
   document.getElementById('calcHijriAgeBtn').addEventListener('click', calcHijriAge);
